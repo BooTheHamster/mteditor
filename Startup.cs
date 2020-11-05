@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using mteditor.Settings;
 
 namespace mteditor
 {
@@ -19,6 +20,8 @@ namespace mteditor
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<EditFileSettings>(Configuration.GetSection(nameof(EditFileSettings)));
+
             services.AddCors(options => {
                 options.AddDefaultPolicy(policy =>
                 {
