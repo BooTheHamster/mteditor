@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { RecordsEditServiceService } from './Services/records-edit.service';
 import { Component, OnInit } from '@angular/core';
-import { IWeatherForecastDto } from './Models/weather-forecast-dto';
+import { EditRecord } from './Models/edit-record';
 
 @Component({
   selector: 'app-root',
@@ -9,17 +9,17 @@ import { IWeatherForecastDto } from './Models/weather-forecast-dto';
 })
 export class AppComponent implements OnInit{
   title = 'mtEditor';
-  records: IWeatherForecastDto[];
+  records: EditRecord[];
 
-  constructor(private httpClient: HttpClient) {
-    this.httpClient = httpClient;
+  constructor(private recordsEditServiceService: RecordsEditServiceService) {
+    this.recordsEditServiceService = recordsEditServiceService;
   }
 
   async ngOnInit() {
-    this.records = await this.GetRecords();
+    this.GetRecords();
   }
 
-  private GetRecords(): Promise<IWeatherForecastDto[]> {
-    return this.httpClient.get<IWeatherForecastDto[]>('/weatherforecast').toPromise();
+  private async GetRecords() {
+    this.records = await this.recordsEditServiceService.getRecords();
   }
 }

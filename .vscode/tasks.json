@@ -39,8 +39,23 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "ng serve",
+            "command": "ng",
+            "args": [
+                "serve"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/ClientApp"
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "run debug Vivaldi",
-            "command": "/usr/bin/vivaldi --remote-debugging-port=9222"
+            "command": "/usr/bin/vivaldi",
+            "args": [
+                "--remote-debugging-port=9222"
+            ],
+            "problemMatcher": []
         }        
     ]
 }

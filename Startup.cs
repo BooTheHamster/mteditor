@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace mteditor
 {
@@ -31,15 +30,18 @@ namespace mteditor
             });
 
             services.AddControllersWithViews();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            AddCustomServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             var isDevelopmentEnv = env.IsDevelopment();
 
@@ -84,6 +86,11 @@ namespace mteditor
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
+        }
+
+        private void AddCustomServices(IServiceCollection services)
+        {
+            services.AddSingleton<Services.EditFileService>();
         }
     }
 }
