@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Connections;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using mteditor.Hubs;
 using mteditor.Settings;
 
 namespace mteditor
@@ -33,6 +36,7 @@ namespace mteditor
             });
 
             services.AddControllersWithViews();
+            services.AddSignalR();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -73,6 +77,11 @@ namespace mteditor
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<EditFileHub>(
+                    "/hubs", 
+                    options => {
+                        options.Transports = HttpTransportType.LongPolling;
+                    });
             });
 
             app.UseSpa(spa =>

@@ -3,6 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { EditFileHubClientService } from './Services/edit-file-hub-client.service';
+import { RecordsEditServiceService } from './Services/records-edit.service';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,10 @@ import { AppComponent } from './app.component';
     BrowserModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    RecordsEditServiceService,
+    EditFileHubClientService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using mteditor.Hubs;
 using mteditor.Models;
 using mteditor.Settings;
 
@@ -14,11 +16,16 @@ namespace mteditor.Services
     public class EditFileService
     {
         private readonly ILogger<EditFileService> _logger;
+        private readonly IHubContext<EditFileHub, IEditFileHub> _editFileHub;
         private string _editFilePath;
 
-        public EditFileService(IOptionsMonitor<EditFileSettings> editFileSettings, ILogger<EditFileService> logger)
+        public EditFileService(
+            IOptionsMonitor<EditFileSettings> editFileSettings,
+            ILogger<EditFileService> logger,
+            IHubContext<EditFileHub, IEditFileHub> editFileHubClient)
         {
             _logger = logger;
+            _editFileHub = editFileHubClient;
             _editFilePath = editFileSettings.CurrentValue.EditFilePath;
 
             editFileSettings.OnChange(OnEditFileSettings);
@@ -34,6 +41,7 @@ namespace mteditor.Services
         private void OnEditFileSettings(EditFileSettings settings, string arg)
         {
             _editFilePath = settings.EditFilePath;
+            _editFileHub.Clients.All.ReloadRecords();
         }
     }
 }

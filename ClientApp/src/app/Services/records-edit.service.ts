@@ -1,6 +1,7 @@
 import { EditRecord } from '../Models/edit-record';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { EditFileHubClientService } from './edit-file-hub-client.service';
 
 /**
  * Сервис редактирования записей.
@@ -10,7 +11,11 @@ import { Injectable } from '@angular/core';
 })
 export class RecordsEditServiceService {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+    private editFileHubClientService: EditFileHubClientService) {
+
+    this.editFileHubClientService = editFileHubClientService;
     this.httpClient = httpClient;
   }
 
