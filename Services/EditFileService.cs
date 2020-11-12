@@ -40,6 +40,8 @@ namespace mteditor.Services
 
         private void OnEditFileSettings(EditFileSettings settings, string arg)
         {
+            _logger.LogInformation("OnEditFileSettings");
+            
             _editFilePath = settings.EditFilePath;
             _editFileHub.Clients.All.ReloadRecords();
         }

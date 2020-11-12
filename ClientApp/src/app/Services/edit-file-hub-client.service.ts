@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { Observable, Subject } from 'rxjs';
 
 /**
  * Клиент SignalR для приемы сообщений от сервера.
@@ -10,13 +11,18 @@ import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microso
 export class EditFileHubClientService {
   private readonly recreateConnectionInterval: number = 1000;
   private connection: HubConnection;
+  private reloadRecordsEventSubject = new Subject<void>();
 
   constructor() {
     this.subscribeToServerEvents();
   }
 
+  public get onReloadRecordsEvent(): Observable<void> {
+    return this.reloadRecordsEventSubject.asObservable();
+  }
+
   private raiseReloadRecordsEvent(): void {
-    console.log('raiseReloadRecordsEvent');
+    this.reloadRecordsEventSubject.next();
   }
 
   private subscribeToServerEvents() {
@@ -41,7 +47,8 @@ export class EditFileHubClientService {
       .withAutomaticReconnect()
       .build();
 
-    connection.on('reloadRecords', this.raiseReloadRecordsEvent);
+    // Здесь важно писать через () => this.some() иначе будут проблемы с потерей this в вызываемом методе.
+    connection.on('reloadRecords', () => this.raiseReloadRecordsEvent());
 
     await connection.start();
 

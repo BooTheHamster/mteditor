@@ -1,7 +1,8 @@
 import { EditRecord } from '../Models/edit-record';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { EditFileHubClientService } from './edit-file-hub-client.service';
+import { Subscription, Subject, Observable } from 'rxjs';
 
 /**
  * Сервис редактирования записей.
@@ -9,17 +10,36 @@ import { EditFileHubClientService } from './edit-file-hub-client.service';
 @Injectable({
   providedIn: 'root'
 })
-export class RecordsEditServiceService {
+export class RecordsEditServiceService implements OnDestroy {
+  private records: EditRecord[] = null;
+  private subscription: Subscription;
+  private onRecordsChangedSubject = new Subject<void>();
 
   constructor(
-    private httpClient: HttpClient,
-    private editFileHubClientService: EditFileHubClientService) {
+    editFileHubClientService: EditFileHubClientService,
+    private httpClient: HttpClient) {
 
-    this.editFileHubClientService = editFileHubClientService;
     this.httpClient = httpClient;
+    this.subscription = editFileHubClientService.onReloadRecordsEvent.subscribe(
+      () => this.updateRecords()
+    );
+    this.updateRecords();
   }
 
-  async getRecords(): Promise<EditRecord[]> {
-    return this.httpClient.get<EditRecord[]>('editfile').toPromise();
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  public getRecords(): EditRecord[] {
+    return this.records;
+  }
+
+  public get onRecordsChanged(): Observable<void> {
+    return this.onRecordsChangedSubject;
+  }
+
+  private async updateRecords() {
+    this.records = await this.httpClient.get<EditRecord[]>('edit').toPromise();
+    this.onRecordsChangedSubject.next();
   }
 }

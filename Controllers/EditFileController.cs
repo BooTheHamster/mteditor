@@ -6,7 +6,7 @@ using mteditor.Models;
 namespace mteditor.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("edit")]
     public class EditFileController : ControllerBase
     {
         private readonly ILogger<EditFileController> _logger;
