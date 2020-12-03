@@ -56,6 +56,18 @@
                 "--remote-debugging-port=9222"
             ],
             "problemMatcher": []
-        }        
+        },
+        {
+            "label": "run server",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "${workspaceFolder}/mteditor.csproj"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": []
+        },
     ]
 }
