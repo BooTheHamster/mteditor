@@ -34,7 +34,7 @@ namespace mteditor
                 });
             });
 
-            services.AddControllersWithViews();
+            services.AddControllers();
             services.AddSignalR();
 
             // In production, the Angular files will be served from this directory
