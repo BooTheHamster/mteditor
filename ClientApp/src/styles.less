@@ -1,3 +1,5 @@
+@import "variables";
+
 * {
     font-family: 'Roboto', sans-serif;
 }
@@ -6,4 +8,19 @@ body, html {
     margin: 0px;
     padding: 0px;
     height: 100%; 
+}
+
+
+@media screen and (min-width: @desktop) {
+
+    .mobile {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: @desktop) {
+
+    .desktop {
+        display: none !important;
+    }
 }

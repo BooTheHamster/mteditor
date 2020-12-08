@@ -1,11 +1,35 @@
-<div class="edit-record">
-    <div class="input-container">
-            <input class="input-field" type="text" title="Часть наименования файла"
-                value="{{record.filenamePart}}" />
+<div class="container-fluid edit-record">
+    <!-- Desktop layout -->
+    <div class="row desktop">
+        <div class="input-container col-sm-6 col-sm-5-5">
+            <input class="input-field" type="text" title="Часть наименования файла" value="{{record.filenamePart}}" />
+        </div>
+        <div class="input-container col-sm-6 col-sm-5-5">
+            <input class="input-field" type="text" title="Наименование каталога" value="{{record.folderName}}" />
+        </div>
+        <div class="col-sm delete-button">
+            <button aria-label="Удалить запись">X</button>
+        </div>
     </div>
-    <div class="input-container">
-            <input class="input-field" type="text" title="Наименование каталога"
-                value="{{record.folderName}}" />
+
+    <!-- Mobile layout -->
+    <div class="row mobile">
+        <div class="col-11">
+            <div class="row">
+                <div class="input-container col-12">
+                    <input class="input-field" type="text" title="Часть наименования файла"
+                        value="{{record.filenamePart}}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-container col-12">
+                    <input class="input-field" type="text" title="Наименование каталога"
+                        value="{{record.folderName}}" />
+                </div>
+            </div>
+        </div>
+        <div class="col-1 delete-button">
+            <button aria-label="Удалить запись">X</button>
+        </div>
     </div>
-    <button aria-label="Удалить запись">X</button>
 </div>

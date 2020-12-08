@@ -1,25 +1,44 @@
-::ng-deep .mat-form-field-flex > .mat-form-field-infix { 
-    padding: 0px !important;
-    width: 400px !important;
-}
+@import "../../../variables";
 
-::ng-deep .mat-form-field-wrapper { 
-    padding-bottom: 0px !important;
-}
-
-::ng-deep .mat-form-field-underline {
-    position: absolute !important;
-    bottom: -2px !important;
+.edit-record > .row {
+    margin: 0px;
+    padding: 0px;
 }
 
 .input-container {
-    margin-left: 10px;
+    margin : 0px;
+    padding: 0px;
 }
 
 .input-field {
-    margin-left: 10px;
+    margin : 0px;
+    padding: 0px;
+    width  : 100%;
 }
 
 .edit-record {
-    margin-left: 10px;
+    margin : 0px;
+    padding: 0px;
+}
+
+.delete-button {
+    margin: 0px;
+    padding: 0px;
+}
+
+@media screen and (min-width: @desktop) {
+    .col-sm-5-5 {
+        width: 45% !important;
+    }
+
+    .delete-button {
+        border: 1px solid red;
+    }
+}
+
+@media screen and (max-width: @desktop) {
+
+    .delete-button {
+        border: 1px solid royalblue;
+    }
 }
