@@ -1,15 +1,11 @@
 <div class="edit-record">
-    <span class="input-container">
-        <mat-form-field>
-            <input matInput #input class="input-field" type="text" title="Часть наименования файла"
+    <div class="input-container">
+            <input class="input-field" type="text" title="Часть наименования файла"
                 value="{{record.filenamePart}}" />
-        </mat-form-field>
-    </span>
-    <span class="input-container">
-        <mat-form-field>
-            <input matInput #input class="input-field" type="text" title="Наименование каталога"
+    </div>
+    <div class="input-container">
+            <input class="input-field" type="text" title="Наименование каталога"
                 value="{{record.folderName}}" />
-        </mat-form-field>
-    </span>
-    <button mat-icon-button color="warn" aria-label="Удалить запись"><mat-icon>highlight_off</mat-icon></button>
+    </div>
+    <button aria-label="Удалить запись">X</button>
 </div>
