@@ -68,9 +68,9 @@ namespace mteditor
             if (!isDevelopmentEnv)
             {
                 app.UseSpaStaticFiles();
-                app.UseHttpsRedirection();
             }
 
+            app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
